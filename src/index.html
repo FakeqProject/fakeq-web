@@ -1,0 +1,980 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" />
+  <meta name="renderer" content="webkit" />
+  <meta name="force-rendering" content="webkit" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="referrer" content="never" />
+  <!-- Module: CSS -->
+  <link rel="stylesheet"
+    href="https://cdn.staticfile.org/mdui/1.0.2/css/mdui.min.css"
+    onerror="this.onerror=null;this.href='https://cdnjs.loli.net/ajax/libs/mdui/1.0.2/css/mdui.min.css'"
+    integrity="sha512-Hh2syGXSuZabqBNcdvPiGo67ASyKhlKTZV9lLOmJp10qZ1v8/YPeuZBoOh0WmS/UPwWtRzQhNJfYyKDAhdGocQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>Fakeq</title>
+</head>
+<body class="mdui-theme-layout-auto mdui-theme-primary-white mdui-theme-accent-blue">
+  <div class="mdui-appbar mdui-text-color-theme">
+    <div class="mdui-toolbar">
+      <button id="sidebar_button" class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', overlay: false}">
+        <i class="mdui-icon">
+          <ion-icon name="menu-outline"></ion-icon>
+        </i>
+      </button>
+      <span class="mdui-typo-title">Fakeq</span>
+      <div class="mdui-toolbar-spacer"></div>
+      <button id="search_button" class="mdui-btn mdui-btn-icon">
+        <i class="mdui-icon mdui-text-color-theme-icon">
+          <ion-icon name="search-outline"></ion-icon>
+        </i>
+      </button>
+      <button id="refresh_button" class="mdui-btn mdui-btn-icon">
+        <i class="mdui-icon mdui-text-color-theme-icon">
+          <ion-icon name="refresh-outline"></ion-icon>
+        </i>
+      </button>
+      <button class="mdui-btn mdui-btn-icon">
+        <i class="mdui-icon mdui-text-color-theme-icon">
+          <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+        </i>
+      </button>
+    </div>
+
+    <!-- Module: 侧边栏 -->
+    <!-- TODO 侧边栏待完善 -->
+    <div id="sidebar" class="mdui-drawer mdui-drawer-close mdui-color-theme-100">
+      <div class="mdui-list">
+        <div class="mdui-card-header">
+          <img id="self_logo" class="mdui-card-header-avatar" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" loading="lazy" />
+          <div id="self_name" class="mdui-card-header-title">聊天后端工作异常</div>
+          <div id="self_slogan" class="mdui-card-header-subtitle">无法连接至您的聊天后端获取数据</div>
+        </div>
+        <div class="mdui-divider"></div>
+        <a class="mdui-list-item mdui-ripple">
+          <i class="mdui-list-item-icon mdui-icon mdui-text-color-theme-icon">
+            <ion-icon name="person-outline"></ion-icon>
+          </i>
+          <div class="mdui-list-item-content">我的帐号</div>
+        </a>
+        <a class="mdui-list-item mdui-ripple">
+          <i class="mdui-list-item-icon mdui-icon mdui-text-color-theme-icon">
+            <ion-icon name="options-outline"></ion-icon>
+          </i>
+          <div class="mdui-list-item-content">偏好设置</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Module: 顶部 Tab 栏 -->
+    <div class="mdui-tab mdui-tab-full-width" mdui-tab>
+      <a id="chat_button" href="#chat" class="mdui-ripple">消息</a>
+      <a id="people_button" href="#people" class="mdui-ripple">联系人</a>
+      <a id="qqzone_button" href="#qqzone" class="mdui-ripple">动态</a>
+    </div>
+  </div>
+
+  <!-- Module: 消息 -->
+  <div id="chat" message_type="unknown" message_id="unknown" chat_id="unknown">
+    <div id="chat-list"class="mdui-list mdui-p-r-1 mdui-col-xs-12  mdui-col-sm-4 mdui-col-md-3 mdui-col-lg-2 mdui-col-xl-2"></div>
+    <div id="chat-area" style="height: 30vh;">
+      <div id="big_screen" class="mdui-list mdui-p-l-1 mdui-hidden-xs mdui-col-sm-8 mdui-col-md-9 mdui-col-lg-10 mdui-col-xl-10">
+        <div class="mdui-list-item">
+          <div class="mdui-list-item-avatar">
+            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
+          </div>
+          <div class="mdui-list-item-content">
+            <div class="mdui-list-item-title"></div>
+            <div class="mdui-list-item-text mdui-list-item-one-line"></div>
+          </div>
+          <button class="mdui-btn mdui-btn-icon mdui-ripple">
+            <i class="mdui-icon mdui-text-color-theme-icon">
+              <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+            </i>
+          </button>
+        </div>
+        <div class="mdui-p-x-2 mdui-typo" style="height: calc(100vh  - 375px); overflow-y:scroll;"></div>
+        <div class="mdui-p-x-2">
+          <div class="mdui-divider"></div>
+          <div class="mdui-p-y-1"></div>
+          <button class="mdui-btn mdui-btn-icon mdui-ripple">
+            <i class="mdui-icon mdui-text-color-theme-icon">
+              <ion-icon name="folder-outline"></ion-icon>
+            </i>
+          </button>
+          <button class="mdui-btn mdui-btn-icon mdui-ripple">
+            <i class="mdui-icon mdui-text-color-theme-icon">
+              <ion-icon name="image-outline"></ion-icon>
+            </i>
+          </button>
+          <button class="mdui-btn mdui-ripple mdui-float-right send_msg_button">Send</button>
+          <button class="mdui-btn mdui-btn-icon mdui-ripple mdui-float-right">
+            <i class="mdui-icon mdui-text-color-theme-icon">
+              <ion-icon name="happy-outline"></ion-icon>
+            </i>
+          </button>
+          <div class="mdui-textfield">
+            <div class="mdui-divider"></div>
+            <textarea class="mdui-textfield-input" rows="4" placeholder="Type Message"></textarea>
+          </div>
+        </div>
+      </div>
+      <div id="small_screen" class="mdui-list mdui-hidden-sm-up">
+        <!-- TODO 小屏幕的聊天窗口 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Module: 联系人 -->
+  <div id="people" class="mdui-p-a-2">
+    <div id="newFriend_button" class="mdui-list-item mdui-ripple" mdui-dialog="{target: '#newFriend', modal: true, history: false, closeOnEsc: false}">
+      <div class="mdui-list-item-content">新朋友</div>
+      <i class="mdui-icon">
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </i>
+    </div>
+    <div id="groupNotification_button" class="mdui-list-item mdui-ripple" mdui-dialog="{target: '#groupNotification', modal: true, history: false, closeOnEsc: false}">
+      <div class="mdui-list-item-content">群通知</div>
+      <i class="mdui-icon">
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </i>
+    </div>
+    <!-- Module: 新朋友 -->
+    <div id="newFriend" class="mdui-dialog">
+      <div class="mdui-dialog-content">
+        <div class="mdui-dialog-title">
+          申请列表
+          <button class="mdui-btn mdui-btn-icon mdui-float-right mdui-ripple" mdui-dialog-close>
+            <i class="mdui-icon">
+              <ion-icon name="close-outline"></ion-icon>
+            </i>
+          </button>
+        </div>
+        <div id="newFriend-list">暂无新朋友</div>
+      </div>
+    </div>
+    <!-- Module: 群通知 -->
+    <div id="groupNotification" class="mdui-dialog">
+      <div class="mdui-dialog-content">
+        <div class="mdui-dialog-title">
+          群通知
+          <button class="mdui-btn mdui-btn-icon mdui-float-right mdui-ripple" mdui-dialog-close>
+            <i class="mdui-icon">
+              <ion-icon name="close-outline"></ion-icon>
+            </i>
+          </button>
+        </div>
+        <div id="groupNotification-list">暂无群通知</div>
+      </div>
+    </div>
+    <!-- Module: 联系人 Tab 栏 -->
+    <div class="mdui-tab mdui-tab-full-width" mdui-tab>
+      <a id="friend_button" href="#friend" class="mdui-ripple">好友</a>
+      <!-- TODO 好友分组 -->
+      <a id="friendClassify_button" href="#friend-classify" class="mdui-ripple mdui-hidden">分组</a>
+      <a id="group_button" href="#group" class="mdui-ripple">群聊</a>
+    </div>
+    <!-- Module: 我的好友 -->
+    <div id="friend" class="mdui-p-a-2">
+      <ul id="friend-list" class="mdui-list"></ul>
+    </div>
+    <!-- Module: 好友分组 -->
+    <!-- TODO 好友分组 有待重构 -->
+    <div id="friend-classify" class="mdui-p-a-2">
+      <ul class="mdui-list" mdui-collapse="{accordion: true}">
+        <li class="mdui-collapse-item">
+          <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+            <i class="mdui-collapse-item-arrow mdui-list-item-icon mdui-icon">
+              <ion-icon name="chevron-forward-outline"></ion-icon>
+            </i>
+            <div class="mdui-list-item-content">我的好友</div>
+            <div class="">1/1</div>
+          </div>
+          <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+            <div class="mdui-card-header mdui-ripple">
+              <img class="mdui-card-header-avatar" src="https://q1.qlogo.cn/g?b=qq&s=640&nk=2549309641" loading="lazy" />
+              <div class="mdui-card-header-title mdui-text-color-theme-text">Star_caorui</div>
+              <div class="mdui-card-header-subtitle mdui-text-color-theme-text">这里是个性签名！</div>
+            </div>
+            <div class="mdui-card-header mdui-ripple">
+              <img class="mdui-card-header-avatar" src="https://q1.qlogo.cn/g?b=qq&s=640&nk=1239504152" loading="lazy" />
+              <div class="mdui-card-header-title mdui-text-color-theme-text">云山鸦</div>
+              <div class="mdui-card-header-subtitle mdui-text-color-theme-text">这里是个性签名！</div>
+            </div>
+            <div class="mdui-card-header mdui-ripple">
+              <img class="mdui-card-header-avatar" src="https://q1.qlogo.cn/g?b=qq&s=640&nk=1370879951" loading="lazy" />
+              <div class="mdui-card-header-title mdui-text-color-theme-text">神様は居るの？</div>
+              <div class="mdui-card-header-subtitle mdui-text-color-theme-text">这里是个性签名！</div>
+            </div>
+          </div>
+        </li>
+        <li class="mdui-collapse-item">
+          <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+            <i class="mdui-collapse-item-arrow mdui-list-item-icon mdui-icon">
+              <ion-icon name="chevron-forward-outline"></ion-icon>
+            </i>
+            <div class="mdui-list-item-content">测试分组</div>
+            <div class="">1/1</div>
+          </div>
+          <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+            <div class="mdui-card-header mdui-ripple">
+              <img class="mdui-card-header-avatar" src="https://q1.qlogo.cn/g?b=qq&s=640&nk=2549309641" loading="lazy" />
+              <div class="mdui-card-header-title mdui-text-color-theme-text">Star_caorui</div>
+              <div class="mdui-card-header-subtitle mdui-text-color-theme-text">这里是个性签名！</div>
+            </div>
+            <div class="mdui-card-header mdui-ripple">
+              <img class="mdui-card-header-avatar" src="https://q1.qlogo.cn/g?b=qq&s=640&nk=1239504152" loading="lazy" />
+              <div class="mdui-card-header-title mdui-text-color-theme-text">云山鸦</div>
+              <div class="mdui-card-header-subtitle mdui-text-color-theme-text">这里是个性签名！</div>
+            </div>
+            <div class="mdui-card-header mdui-ripple">
+              <img class="mdui-card-header-avatar" src="https://q1.qlogo.cn/g?b=qq&s=640&nk=1370879951" loading="lazy" />
+              <div class="mdui-card-header-title mdui-text-color-theme-text">神様は居るの？</div>
+              <div class="mdui-card-header-subtitle mdui-text-color-theme-text">这里是个性签名！</div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <!-- Module: 我的群聊 -->
+    <div id="group" class="mdui-p-a-2">
+      <ul id="group-list" class="mdui-list" mdui-collapse="{accordion: true}"></ul>
+    </div>
+  </div>
+  <!-- Module: QQ空间 -->
+  <!-- TODO QQ 空间待重构 -->
+  <div id="qqzone" class="mdui-p-a-2">
+    <div class="mdui-container-fluid mdui-row">
+      <div class="mdui-col-xs-12  mdui-col-sm-6 mdui-col-md-4 mdui-col-lg-3 mdui-col-xl-2">
+        <div class="mdui-card mdui-m-y-1">
+          <div class="mdui-card-header">
+            <img class="mdui-card-header-avatar" src="https://q1.qlogo.cn/g?b=qq&s=640&nk=2549309641" />
+            <div class="mdui-card-header-title">Star_caorui</div>
+            <div class="mdui-card-header-subtitle">今天 2:30</div>
+          </div>
+          <div class="mdui-card-menu">
+            <button class="mdui-btn mdui-btn-icon mdui-ripple">
+              <i class="mdui-icon">
+                <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+              </i>
+            </button>
+          </div>
+          <div class="mdui-card-content">为什么我要写这个功能？？？</div>
+          <div class="mdui-card-actions">
+            <div>
+              <div class="mdui-chip">
+                <span class="mdui-chip-title">Star_caorui</span>
+              </div>
+              <div class="mdui-chip">
+                <span class="mdui-chip-title">云山鸦</span>
+              </div>
+              <div class="mdui-chip">
+                <span class="mdui-chip-title">神様は居るの？</span>
+              </div>
+              觉得很淦
+            </div>
+            <button class="mdui-btn mdui-btn-icon mdui-float-right mdui-ripple">
+              <i class="mdui-icon">
+                <ion-icon name="share-outline"></ion-icon>
+              </i>
+            </button>
+            <button class="mdui-btn mdui-btn-icon mdui-float-right mdui-ripple">
+              <i class="mdui-icon">
+                <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+              </i>
+            </button>
+            <button class="mdui-btn mdui-btn-icon mdui-float-right mdui-ripple">
+              <i class="mdui-icon">
+                <ion-icon name="thumbs-up-outline"></ion-icon>
+              </i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="mdui-col-xs-12  mdui-col-sm-6 mdui-col-md-4 mdui-col-lg-3 mdui-col-xl-2">
+        <div class="mdui-card mdui-m-y-1">
+          <div class="mdui-card-header">
+            <img class="mdui-card-header-avatar" src="https://q1.qlogo.cn/g?b=qq&s=640&nk=2549309641" />
+            <div class="mdui-card-header-title">Star_caorui</div>
+            <div class="mdui-card-header-subtitle">今天 2:30</div>
+          </div>
+          <div class="mdui-card-menu">
+            <button class="mdui-btn mdui-btn-icon mdui-ripple">
+              <i class="mdui-icon">
+                <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+              </i>
+            </button>
+          </div>
+          <div class="mdui-card-content">为什么我要写这个功能？？？</div>
+          <div class="mdui-card-actions">
+            <div>
+              <div class="mdui-chip">
+                <span class="mdui-chip-title">Star_caorui</span>
+              </div>
+              <div class="mdui-chip">
+                <span class="mdui-chip-title">云山鸦</span>
+              </div>
+              <div class="mdui-chip">
+                <span class="mdui-chip-title">神様は居るの？</span>
+              </div>
+              觉得很淦
+            </div>
+            <button class="mdui-btn mdui-btn-icon mdui-float-right mdui-ripple">
+              <i class="mdui-icon">
+                <ion-icon name="share-outline"></ion-icon>
+              </i>
+            </button>
+            <button class="mdui-btn mdui-btn-icon mdui-float-right mdui-ripple">
+              <i class="mdui-icon">
+                <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+              </i>
+            </button>
+            <button class="mdui-btn mdui-btn-icon mdui-float-right mdui-ripple">
+              <i class="mdui-icon">
+                <ion-icon name="thumbs-up-outline"></ion-icon>
+              </i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Module: JavaScript -->
+  <script
+    src="https://cdn.staticfile.org/mdui/1.0.2/js/mdui.min.js"
+    integrity="sha512-LBh0vC8hNru7991yk7vBb3tiBCU41shGOowGRnLqz63KYedvNQOyGOKHnl/pHSRYJ2P45bjzALArvDDHSSc2KA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    if(!window.mdui) {
+      document.write('\
+      <script src="https://cdnjs.loli.net/ajax/libs/mdui/1.0.2/js/mdui.min.js"\
+              integrity="sha512-LBh0vC8hNru7991yk7vBb3tiBCU41shGOowGRnLqz63KYedvNQOyGOKHnl/pHSRYJ2P45bjzALArvDDHSSc2KA=="\
+              crossorigin="anonymous" referrerpolicy="no-referrer">\
+      ><' + '/script>');
+    }
+  </script>
+  <script type="module"
+    src="https://cdn.staticfile.org/ionicons/6.0.1/ionicons/ionicons.esm.min.js"
+    integrity="sha512-6dpLw00u76bId3OXfrMDT2mpSlzfDRx5htyA9l3O4CkjH8Dr25yKH3ndAgQhgPQogRNzNL/HqxUzBLQKvRJSxg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script nomodule
+    src="https://cdn.staticfile.org/ionicons/6.0.1/ionicons.min.js"
+    integrity="sha512-esqkwbZWQWGPKMg0apElthYF54n7TMcMGQs/rC8KyWIjuFt+d+kB2n4j7yWOXGn82wMrs5rLMPoiw7n73GJ5Nw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    var $ = mdui.$;
+
+    /* JS Function Backend */
+    if (!localStorage.getItem("backend_func")) {
+      try {
+        if (typeof eval(changeTitle) === "function") {
+          localStorage.setItem("backend_func", "app");
+        }
+      } catch (e) {
+        localStorage.setItem("backend_func", "web");
+      }
+    }
+
+    backend_func = localStorage.getItem("backend_func");
+
+    /* Chat Backend */
+    function checkHTTPStatus(address) {
+      $.ajax({
+        method: 'POST',
+        url: address + '/get_version_info',
+        data: {
+          params: ''
+        },
+        success: function () {
+          localStorage.setItem("backend_chat_http_api", address);
+        }
+      });
+    }
+
+    function checkWSStatus(address) {
+      ws = new WebSocket(address);
+      ws.onopen = function () {
+        localStorage.setItem("backend_chat_ws_api", address);
+        ws.close();
+      };
+    }
+
+    function checkDefaultHTTP() {
+      checkHTTPStatus('http://localhost:5700');
+    }
+
+    function checkDefaultWS() {
+      if(!checkWSStatus('ws://localhost:5700')) {
+        checkWSStatus('ws://localhost:6700');
+      }
+    }
+
+    if (!localStorage.getItem("backend_chat_api")) {
+      mdui.dialog({
+        title: '请选择您请求后端的方式',
+        content: '您可以从 HTTP API 或 WebSocket API 中二选一。HTTP API 可能有 TCP 连接损耗，但是更稳定。WS API 会保持长连接，但是可能受聊天后端的因素有不稳定的现象。',
+        modal: true,
+        history: false,
+        closeOnEsc: false,
+        buttons: [
+          {
+            text: 'HTTP API',
+            onClick: function (inst) {
+              localStorage.setItem("backend_chat_api", 'http');
+              location.reload();
+              throw new Error('exit');
+            }
+          },
+          {
+            text: 'WS API',
+            onClick: function (inst) {
+              localStorage.setItem("backend_chat_api", 'ws');
+              location.reload();
+              throw new Error('exit');
+            }
+          }
+        ]
+      });
+    }
+
+    if (localStorage.getItem("backend_chat_api")) {
+      if (localStorage.getItem("backend_chat_api") === 'http') {
+        if (!localStorage.getItem("backend_chat_http_api")) {
+          mdui.prompt('请输入 HTTP 通信地址', '无法使用 HTTP 连接至聊天后端',
+            function (value) {
+              checkHTTPStatus(value);
+              location.reload();
+              throw new Error('exit');
+            },
+            function (value) {
+              checkDefaultHTTP()
+              location.reload();
+              throw new Error('exit');
+            },
+            {
+              modal: true,
+              confirmText: '连接',
+              cancelText: '默认'
+            }
+          );
+        } else {
+          mdui.snackbar({
+            message: '您已成功使用 HTTP 连接至聊天后端',
+            position: 'right-top',
+            timeout: 250
+          });
+        }
+      }
+
+      if (!localStorage.getItem("backend_chat_ws_api")) {
+        mdui.prompt('请输入 Websocket 通信地址', '无法使用 Websocket 连接至聊天后端',
+          function (value) {
+            checkWSStatus(value);
+            location.reload();
+            throw new Error('exit');
+          },
+          function (value) {
+            checkDefaultWS()
+            location.reload();
+            throw new Error('exit');
+          },
+          {
+            modal: true,
+            confirmText: '连接',
+            cancelText: '默认'
+          }
+        );
+      } else {
+        mdui.snackbar({
+          message: '您已成功使用 Websocket 连接至聊天后端',
+          position: 'right-top',
+          timeout: 250
+        });
+      }
+    }
+
+    switch (backend_func) {
+      case 'app':
+        // TODO 给后端语言传递聊天后端地址
+        break;
+      default:
+        if (localStorage.getItem("backend_chat_api") === 'http') {
+          var http = localStorage.getItem("backend_chat_http_api");
+        }
+        if (localStorage.getItem("backend_chat_ws_api")) {
+          var ws = new WebSocket(localStorage.getItem("backend_chat_ws_api"));
+        }
+        break;
+    }
+  </script>
+  <script>
+    $(function () {
+      if (window.Notification && Notification.permission !== "granted") {
+        Notification.requestPermission().then(function (permission) {
+          if (permission === "granted") {
+            mdui.snackbar({
+              message: '您已允许推送通知',
+              position: 'right-top',
+              timeout: 2000
+            });
+          }
+        });
+      }
+    });
+    function notify(title, content, icon, callback) {
+      if (Notification.permission === "granted") {
+        let notification = new Notification(title, {
+          body: content,
+          icon: icon
+        });
+        notification.onclick = function () {
+          callback();
+        };
+      } else {
+        mdui.snackbar({
+          message: '您已拒绝推送通知',
+          position: 'right-top',
+          timeout: 2000
+        });
+      }
+    }
+  </script>
+  <script>
+    // TODO 数据库
+  </script>
+  <script>
+    function errConnect() {
+      setTimeout('mdui.alert("请检查您的后端工作是否正常", "后端通信异常");', 150);
+    }
+
+    function getUserLogo(number) {
+      return 'https://q1.qlogo.cn/g?b=qq&s=640&nk=' + number;
+    }
+
+    function getGroupLogo(number) {
+      return 'https://p.qlogo.cn/gh/' + number + '/' + number + '/0';
+    }
+
+    function escapeHTML(str){
+      return new Option(str).innerHTML;
+    }
+  </script>
+  <script>
+    if (localStorage.getItem("backend_func") === 'web') {
+      if (localStorage.getItem("backend_chat_api") === 'http') {
+        function get_login_info() {
+          $.ajax({
+            method: 'POST',
+            url: http + '/get_login_info',
+            data: {
+              params: ''
+            },
+            success: function (data) {
+              data = JSON.parse(data);
+              if (data.status === 'ok') {
+                $('#self_logo').attr({ src: getUserLogo(data.data.user_id) });
+                $('#self_name').text(data.data.nickname);
+                $('#self_slogan').text('暂不支持设置个性签名');
+              }
+              delete data;
+            }
+          });
+        }
+
+        // TODO 消息页面功能待完成
+        function send_msg(message_type, id, content) {
+          switch (message_type) {
+            case 'private':
+              $.ajax({
+                method: 'POST',
+                url: http + '/send_msg',
+                data: {
+                  user_id: id,
+                  message: content
+                },
+                success: function (data) {
+                  data = JSON.parse(data);
+                  if (data['status'] === 'ok') {
+                    updateSidebar(message_type, id, $('#chat').attr('chat_name'), $('#self_name').text() + ': ' + content, data.data['message_id']);
+                  }
+                }
+              });
+              break;
+            case 'group':
+              $.ajax({
+                method: 'POST',
+                url: http + '/send_msg',
+                data: {
+                  group_id: id,
+                  message: content
+                },
+                success: function (data) {
+                  data = JSON.parse(data);
+                  if (data['status'] === 'ok') {
+                    updateSidebar($('#chat').attr('message_type'), $('#chat').attr('chat_id'), $('#chat').attr('chat_name'), $('#self_name').text() + ': ' + $('.mdui-textfield-input').val(), data.data['message_id']);
+                  }
+                }
+              });
+              break;
+            default:
+              break;
+          }
+        }
+
+        function get_msg(message_id) {
+          $.ajax({
+            method: 'POST',
+            url: http + '/get_msg',
+            data: {
+              message_id: message_id
+            },
+            success: function (data) {
+              console.log(data);
+            }
+          });
+        }
+
+        function get_chat_history(message_id, count = 20) {
+          $.ajax({
+            method: 'POST',
+            url: http + '/get_chat_history',
+            data: {
+              message_id: message_id,
+              count: count
+            },
+            success: function (data) {
+              data = JSON.parse(data);
+              if (data['status'] === 'ok') {
+                for (let i in data.data) {
+                  $('#big_screen .mdui-typo').append('<div class="mdui-chip"><img class= "mdui-chip-icon" src = "' + getUserLogo(data.data[i]['sender']['user_id']) + '" /><span class="mdui-chip-title">' + (data.data[i]['sender']['card'] !== '' ? data.data[i]['sender']['card'] : data.data[i]['sender']['nickname']) + '</span></div>');
+                  $('#big_screen .mdui-typo').append('<pre style="width:fit-content;"><code>' + decodeMSG(data.data[i]['message'], 'html') + '</code></pre>');
+                }
+              }
+            }
+          });
+        }
+
+        function set_friend_add_request(flag, approve) {
+          $.ajax({
+            method: 'POST',
+            url: http + '/set_friend_add_request',
+            data: {
+              flag: flag,
+              approve: approve
+            }
+          });
+        }
+
+        function set_group_add_request(flag, sub_type, approve) {
+          $.ajax({
+            method: 'POST',
+            url: http + '/set_group_add_request',
+            data: {
+              flag: flag,
+              sub_type: sub_type,
+              approve: approve
+            }
+          });
+        }
+
+        function get_system_msg() {
+          $.ajax({
+            method: 'POST',
+            url: http + '/get_system_msg',
+            data: {
+              params: ''
+            },
+            success: function (data) {
+              data = JSON.parse(data);
+              if (data.status === 'ok') {
+                for (let i in data.data) {
+                  if (data.data[i].request_type === 'friend') {
+                    $('#newFriend-list').empty();
+                  }
+                  if (data.data[i].request_type === 'group') {
+                    $('#groupNotification-list').empty();
+                  }
+                }
+                for (let i in data.data) {
+                  if (data.data[i].request_type === 'friend') {
+                    $('#newFriend-list').append('<div class="mdui-list-item" flag="' + data.data[i]['flag'] + '"><div class="mdui-list-item-avatar"><img src="' + getUserLogo(data.data[i]['user_id']) + '"></div><div class="mdui-list-item-content"><div class="mdui-list-item-title">' + data.data[i]['nickname'] + ' (' + data.data[i]['user_id'] + ')</div><div class="mdui-list-item-text mdui-list-item-one-line">对方留言：' + data.data[i]['content'] + '</div><div class="mdui-list-item-text mdui-list-item-one-line">来源：' + data.data[i]['source'] + '</div></div><button class="mdui-btn mdui-btn-icon mdui-ripple" approve="true"><i class="mdui-icon"><ion-icon name="checkmark-outline"></ion-icon></i></button> <button class="mdui-btn mdui-btn-icon mdui-ripple" approve="false"><i class="mdui-icon"><ion-icon name="close-outline"></ion-icon></i></button></div>');
+                  }
+                  if (data.data[i].request_type === 'group') {
+                    $('#groupNotification-list').append('<div class="mdui-list-item" flag="' + data.data[i]['flag'] + '" sub_type="' + data.data[i]['sub_type'] + '"><div class="mdui-list-item-avatar"><img src="' + getGroupLogo(data.data[i]['group_id']) + '"></div><div class="mdui-list-item-content"><div class="mdui-list-item-title">' + data.data[i]['group_name'] + ' (' + data.data[i]['group_id'] + ')</div><div class="mdui-list-item-text mdui-list-item-one-line">您收到了来自 "' + data.data[i]['nickname'] + '" (' + data.data[i]['user_id'] + ') 的邀请</div></div><button class="mdui-btn mdui-btn-icon mdui-ripple" approve="true"><i class="mdui-icon"><ion-icon name="checkmark-outline"></ion-icon></i></button> <button class="mdui-btn mdui-btn-icon mdui-ripple" approve="false"><i class="mdui-icon"><ion-icon name="close-outline"></ion-icon></i></button></div>');
+                  }
+                }
+              }
+              delete data;
+            }
+          });
+        }
+
+        function get_friend_list() {
+          $.ajax({
+            method: 'POST',
+            url: http + '/get_friend_list',
+            data: {
+              params: ''
+            },
+            success: function (data) {
+              data = JSON.parse(data);
+              if (data.status === 'ok') {
+                $('#friend-list').empty();
+                for (let i in data.data) {
+                  $('#friend-list').append('<li class="mdui-list-item mdui-ripple" message_type="private" chat_id="' + data.data[i]['user_id'] + '"><div class="mdui-list-item-avatar"><img src="' + getUserLogo(data.data[i]['user_id']) + '" /></div><div class="mdui-list-item-content"><div class="mdui-list-item-title">' + data.data[i]['remark'] + '</div><div class="mdui-list-item-text mdui-list-item-one-line mdui-hidden">暂不支持个性签名</div></div></li');
+                }
+              }
+              delete data;
+            }
+          });
+        }
+
+        function get_group_list() {
+          $.ajax({
+            method: 'POST',
+            url: http + '/get_group_list',
+            data: {
+              params: ''
+            },
+            success: function (data) {
+              data = JSON.parse(data);
+              if (data.status === 'ok') {
+                $('#group-list').empty();
+                for (let i in data.data) {
+                  $('#group-list').append('<li class="mdui-list-item mdui-ripple" message_type="group" chat_id="' + data.data[i]['group_id'] + '"><div class="mdui-list-item-avatar"><img src="' + getGroupLogo(data.data[i]['group_id']) + '" /></div><div class="mdui-list-item-content"><div class="mdui-list-item-title">' + data.data[i]['group_name'] + '</div></div></li>');
+                  mdui.mutation();
+                }
+              }
+              delete data;
+            }
+          });
+        }
+      }
+
+      if (localStorage.getItem("backend_chat_api") === 'ws') {
+        // TODO WebSocket API 待完成
+      }
+
+      // TODO 好友分组
+
+      function decodeMSG(message, format = 'html') {
+        let msg = '';
+        for (let i in message) {
+          data = message[i];
+          switch (data['type']) {
+            case 'text':
+              if (format === 'html') {
+                msg += '<p1>' + escapeHTML(data['data']['text']) + '</p1>';
+              } else {
+                msg += data['data']['text'];
+              }
+              break;
+
+            case 'image':
+              if (format === 'html') {
+                msg += '<img src="' + data['data']['url'] + '" style="max-width: 20vh;" />';
+              } else {
+                msg += '[图片]';
+              }
+              break;
+
+            default:
+              console.log(data);
+              msg += '[暂不支持该类型消息]';
+              break;
+          }
+        }
+        return msg;
+      }
+
+      function updateSidebar(message_type, id, title, content = '', message_id = ''){
+        let is_find = false;
+        $('#chat-list .mdui-list-item').each(function() {
+          if ($(this).attr('message_type') === message_type && $(this).attr('chat_id') == id) {
+            if (content !== '') {
+              $(this).attr('message_id', message_id);
+              $(this).find('.mdui-list-item-text').text(content);
+            }
+            $(this).insertBefore($('#chat-list').children()[0]);
+            is_find = true;
+          }
+        });
+
+        if (!is_find) {
+          $('#chat-list').prepend('<div class="mdui-list-item mdui-ripple" message_type="' + message_type + '" message_id="' + message_id + '" chat_id="' + id + '"><div class="mdui-list-item-avatar"><img src="' + ((message_type === 'group') ? getGroupLogo(id) : getUserLogo(id)) + '"></div><div class="mdui-list-item-content"><div class="mdui-list-item-title">' + title + '</div><div class="mdui-list-item-text mdui-list-item-one-line">' + content + '</div></div></div>');
+        }
+      }
+
+      function updateRoom(message_type, id, title, content = '', enter = false, message_id = '') {
+        title = escapeHTML(title);
+        let sidebar_content = '';
+        let sender_group_nick_name = '';
+        if (content !== '') {
+          if (message_type === 'group') {
+            sender_group_nick_name = escapeHTML(content['sender_group_nick_name']);
+            sender_user_id = content['sender_user_id'];
+            delete content['sender_user_id'];
+            delete content['sender_group_nick_name'];
+            sidebar_content += sender_group_nick_name + ': ';
+          }
+          sidebar_content += decodeMSG(content, 'text');
+        }
+        updateSidebar(message_type, id, title, sidebar_content, message_id);
+        if (!enter) {
+          notify(title, sidebar_content, (message_type === 'group') ? getGroupLogo(id) : getUserLogo(id), function () {
+            updateRoom(message_type, id, title, '', true);
+          });
+        }
+        if ($('#chat').attr('message_type') === message_type && $('#chat').attr('chat_id') == id) {
+          if (!enter) {
+            $('#big_screen .mdui-typo').append('<div class="mdui-chip"><img class= "mdui-chip-icon" src = "' + getUserLogo(sender_user_id) + '" /><span class="mdui-chip-title">' + sender_group_nick_name + '</span></div>');
+            $('#big_screen .mdui-typo').append('<pre style="width:fit-content;"><code>' + decodeMSG(content, 'html') + '</code></pre>');
+          }
+        } else {
+          if (enter) {
+            $('#chat').attr('message_type', message_type);
+            if (message_id !== '') {
+              $('#chat').attr('message_id', message_id);
+            }
+            $('#chat').attr('chat_id', id);
+            $('#big_screen .mdui-list-item .mdui-list-item-avatar img').attr('src', ((message_type === 'group') ? getGroupLogo(id) : getUserLogo(id)));
+            $('#big_screen .mdui-list-item .mdui-list-item-content .mdui-list-item-title').text(title);
+            $('#big_screen .mdui-list-item .mdui-list-item-content .mdui-list-item-text').text("暂不支持个性签名");
+            $('#big_screen .mdui-typo').empty();
+            $('#chat-list .mdui-list-item').each(function () {
+              if ($(this).attr('message_type') === message_type && $(this).attr('chat_id') == id) {
+                get_chat_history($(this).attr('message_id'));
+              }
+            });
+          }
+        }
+      }
+
+      function router(data) {
+        // TODO Router
+        switch (data['post_type']) {
+          case 'message':
+            // saveMessage(data);
+            switch (data['message_type']) {
+              case 'private':
+                updateRoom(data['message_type'], data['user_id'], data['sender']['remark'], data['message'], false, data['message_id']);
+                break;
+              case 'group':
+                data['message']['sender_group_nick_name'] = (data['sender']['card'] !== '' ? data['sender']['card'] : data['sender']['nickname']);
+                data['message']['sender_user_id'] = data['sender']['user_id'];
+                updateRoom(data['message_type'], data['group_id'], data['group_name'], data['message'], false, data['message_id']);
+                break;
+            }
+            break;
+
+          case 'request':
+            if (localStorage.getItem("backend_chat_api") === 'ws') {
+              // TODO WebSocket 实现待完成
+              console.log(data);
+            }
+            break;
+
+          case 'meta_event':
+            break;
+
+          default:
+            console.log(data);
+            break;
+        }
+      }
+
+      ws.addEventListener('close', function (event) {
+        errConnect();
+      });
+
+      ws.addEventListener('open', function () {
+        get_login_info();
+      });
+
+      ws.addEventListener('message', function (event) {
+        router(JSON.parse(event.data));
+      });
+    }
+  </script>
+  <script>
+    $('#sidebar_button').on('click', function (e) {
+      get_login_info();
+    });
+
+    $('#people_button').on('click', function (e) {
+      get_system_msg();
+      get_friend_list();
+    });
+
+    $(document).on('click', '#newFriend-list div button', function (e) {
+      set_friend_add_request($(this).parent().attr('flag'), $(this).attr('approve'));
+      $(this).parent().remove();
+      mdui.snackbar({
+        message: '您已' + ($(this).attr('approve') === 'true' ? '同意' : '拒绝') + '了对方的好友请求',
+        position: 'right-top',
+        timeout: 2000
+      });
+    });
+
+    $(document).on('click', '#groupNotification-list div button', function (e) {
+      set_group_add_request($(this).parent().attr('flag'), $(this).parent().attr('sub_type'), $(this).attr('approve'));
+      $(this).parent().remove();
+      mdui.snackbar({
+        message: '您已' + ($(this).attr('approve') === 'true' ? '同意' : '拒绝') + '了对方的邀请',
+        position: 'right-top',
+        timeout: 2000
+      });
+    });
+
+    $(document).on('click', '#chat-list .mdui-list-item', function (e) {
+      updateRoom($(this).attr('message_type'), $(this).attr('chat_id'), $(this).children('.mdui-list-item-content').children('.mdui-list-item-title').text(), '', true);
+    });
+
+    $(document).on('click', '.send_msg_button', function (e) {
+      function _send_msg() {
+        if ($('.mdui-textfield-input').val() !== '') {
+          send_msg($('#chat').attr('message_type'), $('#chat').attr('chat_id'), $('.mdui-textfield-input').val());
+          $('#big_screen .mdui-typo').append('<div class="mdui-chip"><img class= "mdui-chip-icon" src = "' + $('#self_logo').attr('src') + '" /><span class="mdui-chip-title">' + $('#self_name').text() + '</span></div>');
+          $('#big_screen .mdui-typo').append('<pre style="width:fit-content;"><code>' + $('.mdui-textfield-input').val() + '</code></pre>');
+          setTimeout("$('.mdui-textfield-input').val('');", 300);
+        } else {
+          mdui.snackbar({
+            message: '请输入消息内容',
+            position: 'right-top',
+            timeout: 2000
+          });
+        }
+      }
+      _send_msg();
+    });
+
+    $(document).on('click', '#friend-list li', function (e) {
+      updateRoom('private', $(this).attr('chat_id'), $(this).children('.mdui-list-item-content').children('.mdui-list-item-title').text(), '', true);
+      $('.mdui-appbar .mdui-tab div').remove('.mdui-tab-indicator');
+      let tab = new mdui.Tab('.mdui-appbar .mdui-tab');
+      tab.show(0);
+    });
+
+    $(document).on('click', '#group-list li', function (e) {
+      updateRoom('group', $(this).attr('chat_id'), $(this).children('.mdui-list-item-content').children('.mdui-list-item-title').text(), '', true);
+      $('.mdui-appbar .mdui-tab div').remove('.mdui-tab-indicator');
+      let tab = new mdui.Tab('.mdui-appbar .mdui-tab');
+      tab.show(0);
+    });
+
+    $('#friendClassify_button').on('click', function (e) {
+      // TODO 好友分组功能待完成
+    });
+
+    $('#group_button').on('click', function (e) {
+      get_group_list();
+    });
+
+
+    $('#qqzone_button').on('click', function (e) {
+      // TODO QQ 空间功能待完成
+    });
+  </script>
+</body>
+</html>
